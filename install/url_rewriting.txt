@@ -1,0 +1,11 @@
+# NGINX CONFIGURATION
+location / {
+    # rewrites /something into /pub/something
+    rewrite ^\/(\w+)$ /pub/$1;
+    if (!-e $request_filename) {
+        # rewrites /pub/$id into /pub/viewpage?id=$id
+        rewrite \/([0-9]*)$ /pub/viewpage?id=$1;
+        # rewrites /pub/page?a=$a into /pub/page.php?a=$a
+        rewrite ^([\w-.\/]+)([a-zA-Z?=]*)([0-9]*)$ /$1.php$2$3;
+    }
+}
