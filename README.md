@@ -37,6 +37,7 @@ Do not forget the last slash "/" otherwise, if your set url rewriting as in "ins
 INSTALLATION
 ============
 To install pweb, make sure you have root access to a MySQL database.
+
 * create a new database;
 * execute "install/db.sql" to fill this new database with the required tables;
 * upload pweb source code to your webserver root directory;
@@ -48,14 +49,10 @@ To install pweb, make sure you have root access to a MySQL database.
 CHANGELOG
 ============
 V 0.1.1
+
 * MySQL queries have been completely rewritten using prepare() and bindParam();
 * resulting bugs in editpage.php and editpubli.php corrected
 * lighter favicons (tared code is now below 100Ko!!)
 * implemented links as required by the latest url rewriting
 * better accentuation support when displaying bibtex entries (acute, grave and circ for any character are now supported, contact me if you need others, this should be easier to add now!)
 * ...
-
-QUESTIONS?
-============
-Do you have questions or did you identify any bug?
-Report them to me here: contact@emmanuel-chambon.fr
