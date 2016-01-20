@@ -1,4 +1,5 @@
-pweb
+PWEB
+============
 
 pweb is distributed under The MIT License (see LICENSE)
 
