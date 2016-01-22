@@ -252,6 +252,13 @@ footer h1
 	background: transparent url('inc/img/icon_pdf_20x20.png') no-repeat left;
 }
 
+.githubLink
+{
+	margin-right: 5px;
+	padding: 10px 10px 10px 25px;
+	background: transparent url('inc/img/icon_github_20x20.png') no-repeat left;
+}
+
 .slidesLink
 {
 	margin-right: 5px;
@@ -353,4 +360,71 @@ td
 {
 	text-align: justify;
 	margin-bottom: 5px;
+}
+
+/* low-res devices */
+@media (max-width: 640px) {
+	* {
+		box-sizing: border-box;
+	}
+	
+	body,
+	header #centerblock,
+	section,
+	aside,
+	footer #centerblock,
+	#redirectBlock,
+	#tabulated,
+	.buttons {
+		width: auto;
+	}
+	
+	img,
+	table,
+	td,
+	blockquote,
+	code,
+	pre,
+	textarea,
+	input,
+	iframe,
+	object,
+	embed,
+	video,
+	.bibtex_code {
+		max-width: 100%;
+	}
+	
+	img {
+		height: auto;
+	}
+	
+	textarea,
+	table,
+	td,
+	th,
+	code,
+	pre,
+	samp, 
+	.bibtex_code {
+		-webkit-hyphens: auto;
+		-moz-hyphens: auto;
+		hyphens: auto;
+		word-wrap: break-word;
+	}
+	
+	code,
+	pre,
+	samp {
+		white-space: pre-wrap;
+	}
+	
+	article:before {
+		content: "(low-res version of the website)";
+		display: block;
+		text-align: center;
+		font-style: italic;
+		font-weight: bold;
+		color: green;
+	}
 }

@@ -25,9 +25,10 @@ $keywords	= $config[8]['val'];
 
 <html>
     <head>
-        <link rel="stylesheet" href="../style.css">
+		<link rel="stylesheet" href="../style.css">
 		<link rel="icon" href="../inc/img/favicon.ico" />
 		<script src="../inc/js/funcShowHide.js"></script>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta name="cms-name" content="pweb">
 		<meta name="cms-version" content="<?php echo CMS_VERSION; ?>">
 		<meta name="keywords" content="<?php echo $keywords; ?>">

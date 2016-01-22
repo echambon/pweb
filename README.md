@@ -42,16 +42,24 @@ To install pweb, make sure you have root access to a MySQL database.
 * create a new database;
 * execute "install/db.sql" to fill this new database with the required tables;
 * upload pweb source code to your webserver root directory;
-* read "install/error_pages.txt" and "install/url_rewriting.txt" to set up the error pages and url rewriting accordingly (visit the official pweb website to learn how to do it if you use nginx, should be easier with appache btw.);
+* read "install/error_pages.txt" and "install/url_rewriting.txt" to set up the error pages and url rewriting accordingly (visit the official pweb website to learn how to do it if you use nginx, should be easier with apache btw.);
 * delete the "install" directory from your server;
 * access the admin board and change the username and password (this is CAPITAL since anyone could be reading this doc);
 * Enjoy!
 
 CHANGELOG
 ============
+V 0.1.2
+
+* Added github class in css to create links to github repositories
+* Corrected some info in the README file
+* Added viewport meta tag (header.php) to avoid automatic redimensioning on low res devices (smartphones)
+* updated style.css to take low res devices into account (no more crammed things ...)
+* when low-res version of the website is active, this is indicated above the <article> html tag
+
 V 0.1.1
 
-* MySQL queries have been completely rewritten using prepare() and bindParam();
+* MySQL queries have been completely rewritten using prepare() and bindParam()
 * resulting bugs in editpage.php and editpubli.php corrected
 * lighter favicons (tared code is now below 100Ko!!)
 * implemented links as required by the latest url rewriting
