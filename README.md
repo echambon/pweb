@@ -55,7 +55,7 @@ V 0.1.2
 * Corrected some info in the README file
 * Added viewport meta tag (header.php) to avoid automatic redimensioning on low res devices (smartphones)
 * updated style.css to take low res devices into account (no more crammed things ...)
-* when low-res version of the website is active, this is indicated above the <article> html tag
+* when low-res version of the website is active, this is indicated above the article html tag
 
 V 0.1.1
 
