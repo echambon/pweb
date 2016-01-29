@@ -39,6 +39,13 @@ $bdd = mysql_pdo_connect();
 						$newPasswordBcrypt = password_hash(htmlspecialchars($_POST['newpassword']), PASSWORD_BCRYPT, $options);
 					}
 					
+					// Checking if email is correct
+					$pattern = '/^[\w.-]+[@][\w-]+[.][a-zA-Z]+$/';
+					if(!preg_match($pattern,$_POST['email'])) {
+						$error = 1;
+						echo "<font color=\"red\"><b>Invalid email.</b></font></br>";
+					}
+					
 					if($newPassword) {
 						if(!empty($_POST['newpasswordrepeat'])) {
 							$newPasswordRepeat = password_hash(htmlspecialchars($_POST['newpasswordrepeat']), PASSWORD_BCRYPT, $options);

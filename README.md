@@ -47,9 +47,13 @@ To install pweb, make sure you have root access to a MySQL database.
 * access the admin board and change the username and password (this is CAPITAL since anyone could be reading this doc);
 * Enjoy!
 
-CHANGELOG
+CHANGELOGs 
 ============
-V 0.1.2
+0.1.3
+* minor changes in readme
+* sends an error if email is incorrectly formatted (admin board)
+
+0.1.2
 
 * Added github class in css to create links to github repositories
 * Corrected some info in the README file
@@ -57,7 +61,7 @@ V 0.1.2
 * updated style.css to take low res devices into account (no more crammed things ...)
 * when low-res version of the website is active, this is indicated above the article html tag
 
-V 0.1.1
+0.1.1
 
 * MySQL queries have been completely rewritten using prepare() and bindParam()
 * resulting bugs in editpage.php and editpubli.php corrected
