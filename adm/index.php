@@ -115,7 +115,7 @@ $bdd = mysql_pdo_connect();
 							$query = $bdd->prepare("UPDATE pw_config SET val='".htmlspecialchars($_POST['subtitle'])."' WHERE id=3"); $query->execute();
 							$query = $bdd->prepare("UPDATE pw_config SET val='".$username_bdd."' WHERE id=4"); $query->execute();
 							$query = $bdd->prepare("UPDATE pw_config SET val='".htmlspecialchars($_POST['email'])."' WHERE id=6"); $query->execute();
-							$query = $bdd->prepare("UPDATE pw_config SET val='".htmlspecialchars($_POST['content'])."' WHERE id=8"); $query->execute();
+							$query = $bdd->prepare("UPDATE pw_config SET val='".htmlspecialchars($_POST['content'], ENT_QUOTES)."' WHERE id=8"); $query->execute();
 							$query = $bdd->prepare("UPDATE pw_config SET val='".htmlspecialchars($_POST['keywords'])."' WHERE id=9"); $query->execute();
 							
 							// Update last modification date

@@ -49,6 +49,11 @@ To install pweb, make sure you have root access to a MySQL database.
 
 CHANGELOGs 
 ============
+0.1.4
+* widgEditor css content (widgContent.css) is now found and has been updated to support the website style file
+* index.html favicon now routes to the correct file
+* corrected apostrophe bug in /adm/index (ENT_QUOTES in htmlspecialchars)
+
 0.1.3
 * minor changes in readme
 * sends an error if email is incorrectly formatted (admin board)
