@@ -221,19 +221,29 @@ function mysql_print_publis_by_type($bdd,$type) {
 		
 	$currentYear = 0;
 	
+	$h2printed = 0;
 	foreach($phdconf as $value) {
 		// New h2 subsection if year is different from the previous one
 		if(!$value['disabled']) {
 			$bibtexType = "@unpublished";
 			switch($value['status']) {
 					case 0:
-						echo "<h2>Submitted</h2>";
+						if(!$h2printed) {
+							echo "<h2>Submitted</h2>";
+							$h2printed = 1;
+						}
 						break;
 					case 1:
-						echo "<h2>Accepted (under revision)</h2>";
+						if(!$h2printed) {
+							echo "<h2>Accepted (under revision)</h2>";
+							$h2printed = 1;
+						}
 						break;
 					case 2:
-						echo "<h2>Accepted</h2>";
+						if(!$h2printed) {
+							echo "<h2>Accepted</h2>";
+							$h2printed = 1;
+						}
 						break;
 					case 3:
 						if($value['year'] != $currentYear) {

@@ -18,9 +18,9 @@ NOTE
 ============
 pweb is known to work with the current PHP, MySQL version.
 
-PHP: 	5.6.11
+PHP: 	5.5.44
 
-MySQL: 	5.6.27
+MySQL: 	5.6.17
 
 Most probably, PHP>=5 and MySQL>=5 is required to run pweb.
 
@@ -53,6 +53,7 @@ CHANGELOGs
 * widgEditor css content (widgContent.css) is now found and has been updated to support the website style file
 * index.html favicon now routes to the correct file
 * corrected apostrophe bug in /adm/index (ENT_QUOTES in htmlspecialchars)
+* corrected a bug in /inc/functions.php which resulted in "submitted", "accepted", etc. being printed for each publication
 
 0.1.3
 * minor changes in readme
