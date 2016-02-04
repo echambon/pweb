@@ -18,9 +18,9 @@ NOTE
 ============
 pweb is known to work with the current PHP, MySQL version.
 
-PHP: 	5.5.44
+PHP: 	5.6.17
 
-MySQL: 	5.6.17
+MySQL: 	5.5.44
 
 Most probably, PHP>=5 and MySQL>=5 is required to run pweb.
 
