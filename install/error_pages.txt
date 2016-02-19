@@ -1,5 +1,0 @@
-# NGINX CONFIGURATION
-# To enable 403/404 error pages, add the following line to your server{} block:
-
-error_page 403 /inc/403.html;
-error_page 404 /inc/404.html;
