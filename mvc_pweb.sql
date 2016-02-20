@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Feb 18, 2016 at 08:15 PM
+-- Generation Time: Feb 20, 2016 at 02:18 PM
 -- Server version: 5.6.28-0ubuntu0.15.10.1
 -- PHP Version: 5.6.11-1ubuntu3.1
 
@@ -88,7 +88,14 @@ CREATE TABLE IF NOT EXISTS `pw_users` (
   `id` int(11) NOT NULL,
   `username` varchar(128) NOT NULL,
   `password` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `pw_users`
+--
+
+INSERT INTO `pw_users` (`id`, `username`, `password`) VALUES
+(1, 'admin', '$2y$09$5VGZ/vMMpq07wcuHiNwFR.YXMJnFU8zV3AAeRhfPSe5ZHLZ0XJrj2');
 
 --
 -- Indexes for dumped tables
@@ -141,7 +148,7 @@ ALTER TABLE `pw_pages`
 -- AUTO_INCREMENT for table `pw_users`
 --
 ALTER TABLE `pw_users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

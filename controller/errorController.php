@@ -21,13 +21,13 @@ class errorController extends baseController {
 		$this->registry->template->show('error');
 	}
 	
-	public function show() {		
+	/*public function show() {		
 		// set template variables
 		$this->setErrorTemplate($this->registry->error->title, $this->registry->error->type, $this->registry->error->message);
 		
 		// load the error template
 		$this->registry->template->show('error');
-	}
+	}*/
 	
 	public function error404() {
 		$this->setErrorTemplate('Page not found', 'Error 404', 'Page not found');

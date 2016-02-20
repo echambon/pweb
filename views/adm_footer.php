@@ -1,6 +1,6 @@
 		<footer>
 			<div id="centerblock">
-				Generated in <b><?php echo $gentime; ?></b> ms.
+				<?php echo $versioning; ?>Generated in <b><?php echo $gentime; ?></b> ms.
 			</div>
 		</footer>
 		

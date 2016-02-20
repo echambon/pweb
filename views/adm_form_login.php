@@ -10,10 +10,10 @@ $(document).ready(function() {
 		var username = $('#username').val();
 		var password = $('#password').val();
 		
-		// Check if variables are not empty
+		// Check if variables are not empty before sending request
 		if(username === '' || password === '') {
             // Testing
-			$("#messageContainer").html("<div id='error'>Missing fields</div>");
+			$("#messageContainer").html("<div id='error'>Empty fields detected.</div>");
         } else {
 			// send HTTP request asynchronously
 			$.ajax({
