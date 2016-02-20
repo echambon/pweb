@@ -365,8 +365,20 @@ td
 #error
 {
 	color: white;
-	background: transparent url('../images/icon_close_20x20.png') no-repeat left;
+	background: transparent url('../images/icon_error_20x20.png') no-repeat left;
 	background-color: red;
+	font-weight: bold;
+	padding: 10px 10px 10px 25px;
+	border-radius: 5pt;
+	margin: auto;
+	width: 70%;
+}
+
+#success
+{
+	color: white;
+	background: transparent url('../images/icon_success_20x20.png') no-repeat left;
+	background-color: green;
 	font-weight: bold;
 	padding: 10px 10px 10px 25px;
 	border-radius: 5pt;

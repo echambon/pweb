@@ -25,6 +25,10 @@ class pageController extends baseController {
 		$this->registry->template->pwebaddress 	= $this->registry->config->pwebaddress;
 	}
 
+	private function render($template) {
+		
+	}
+
 	public function index() {
 		// set script generation start time
 		$this->registry->time->setScriptStartTime(microtime(TRUE));
