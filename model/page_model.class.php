@@ -11,6 +11,10 @@ class page_model extends baseModel {
 		$this->registry	= $registry;
 	}
 	
+	public function getIndexContent() {
+		return $this->registry->db->select('pw_config',['val'],['id' => 6]);
+	}
+	
 	public function getPageContent($url) {
 		return $this->registry->db->select('pw_pages',['content'],['url' => $url]);
 	}

@@ -6,7 +6,6 @@
  */
 
 class admController extends baseController {
-	
 	private $model;
 	
 	public function __construct($registry) {
@@ -76,7 +75,6 @@ class admController extends baseController {
 		}
 	}
 	
-	// PROBLEM: CAN BE CALLED DIRECTLY ...
 	public function process_login() {
 		$error = 1;
 		$message = 'Empty fields detected.';
@@ -112,5 +110,23 @@ class admController extends baseController {
 		
 		// redirect
 		header('Location: /adm');
+	}
+	
+	public function pages() {
+		if(!isset($_SESSION['user'])) {
+			$this->show_login();
+		} else {
+			// render pages list / creation
+			$this->render('adm_pages');
+		}
+	}
+	
+	public function publis() {
+		if(!isset($_SESSION['user'])) {
+			$this->show_login();
+		} else {
+			// render pages list / creation
+			$this->render('adm_publis');
+		}
 	}
 }

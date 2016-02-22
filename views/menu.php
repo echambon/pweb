@@ -1,5 +1,5 @@
 <nav>
 	<ul>
-		<li><a href="/">Home</a></li>
+		<?php echo $menu; ?>
 	</ul>
 </nav>

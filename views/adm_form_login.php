@@ -47,7 +47,7 @@ $(document).ready(function() {
 		
 		<div id="messageContainer"></div>
 		
-		<form id="loginForm" method="post" action="adm/process_login">
+		<form id="loginForm" method="post" action="/adm/process_login">
 			<table style="width:100%">
 			<tr>
 				<td style="padding-top:20px">Username<br><input type="text" id="username" name="username"></td>
