@@ -21,7 +21,7 @@ class admController extends baseController {
 		$this->registry->template->cmsversion 	= $this->registry->config->cmsversion;
 	}
 	
-	private function render($template) {
+	private function render($template,$scripts) {
 		// set script generation start time
 		$this->registry->time->setScriptStartTime(microtime(TRUE));
 		
@@ -47,6 +47,15 @@ class admController extends baseController {
 		
 		// load footer template
 		$this->registry->template->versioning = '';
+		
+		$scripts_str = '';
+		if($scripts != NULL) {
+			foreach($scripts as $script) {
+				$scripts_str = $scripts_str . '<script src="/assets/js/'. $script .'.js"></script>';
+			}
+		}
+		$this->registry->template->scripts = $scripts_str;
+		
 		if(isset($_SESSION['user'])) {
 			$this->registry->template->versioning = 'Server path: <b>'. getcwd() .'</b><br />Versions: <b>' . phpversion() . '</b> (PHP); <b>' . $this->registry->db->pdo->getAttribute(constant("PDO::ATTR_SERVER_VERSION")). '</b> (MySQL); <b>' . $this->registry->config->cmsversion . '</b> (<a href="' . $this->registry->config->pwebaddress . '" target="_blank">pweb</a> CMS)<br />';
 		}
@@ -61,14 +70,14 @@ class admController extends baseController {
 			$this->registry->template->username = $_SESSION['user'];
 			
 			// render admin board index
-			$this->render('adm_index');
+			$this->render('adm_index',NULL);
 		}
 	}
 	
 	public function show_login() {
 		if(!isset($_SESSION['user'])) {
 			// render login form
-			$this->render('adm_form_login');
+			$this->render('adm_form_login',array('jquery','adm_form_login'));
 		} else {
 			// "redirect" to index
 			$this->index();
@@ -100,7 +109,6 @@ class admController extends baseController {
 			header('Location: /adm');
 		}
 		
-		//$message = 'Welcome back <i>' . $_POST['username'] .'</i>, you are now connected!';
 		echo json_encode(['error' => $error, 'message' => $message]);
 	}
 	
@@ -117,7 +125,44 @@ class admController extends baseController {
 			$this->show_login();
 		} else {
 			// render pages list / creation
-			$this->render('adm_pages');
+			$this->render('adm_pages',array('jquery','adm_pages'));
+		}
+	}
+	
+	public function process_page() {
+		if(!isset($_SESSION['user'])) {
+			$this->show_login();
+		} else {
+			$error = 1;
+			$message = 'Empty mandatory fields detected.';
+			
+			if(!empty($_POST['pname']) && !empty($_POST['url'])) {
+				// change default error message
+				$error = 1;
+				$message = 'A page with the same URL was found in the database.';
+				
+				// process posted data
+				$p_name 	= htmlentities($_POST['pname']);
+				$p_url		= $_POST['url'];
+				$p_content	= htmlentities($_POST['content']);
+				
+				// check if url does not already exist in the database
+				$doublon = $this->model->getPageIdByUrl($p_url);
+				if(empty($doublon)) {
+					$error = 0;
+				}
+				
+				// if the page does not already exist, add it!
+				if(!$error) {
+					// add page to database
+					$last_id = $this->model->insertPageEntry($p_name,$p_url,$p_content);
+					
+					// update message
+					$message = 'New page created with ID #' . $last_id;
+				}
+			}
+			
+			echo json_encode(['error' => $error, 'message' => $message]);
 		}
 	}
 	
@@ -126,7 +171,7 @@ class admController extends baseController {
 			$this->show_login();
 		} else {
 			// render pages list / creation
-			$this->render('adm_publis');
+			$this->render('adm_publis',NULL);
 		}
 	}
 }

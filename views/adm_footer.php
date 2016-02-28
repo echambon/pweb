@@ -7,5 +7,7 @@
 		<div id="copyright">
 			<a href="/">back to website</a>
 		</div>
+		
+		<?php echo $scripts; ?>
 	</body>
 </html>
