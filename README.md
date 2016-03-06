@@ -44,11 +44,15 @@ To install pweb, make sure you have root access to a MySQL database.
 * upload pweb source code to your webserver root directory;
 * read "install/error_pages.txt" and "install/url_rewriting.txt" to set up the error pages and url rewriting accordingly (visit the official pweb website to learn how to do it if you use nginx, should be easier with apache btw.);
 * delete the "install" directory from your server;
+* change rights (777) to the directories (archives;publis;slides) in assets/ folder;
 * access the admin board and change the username and password (this is CAPITAL since anyone could be reading this doc);
 * Enjoy!
 
 CHANGELOGs 
 ============
+0.1.5
+* you can now link a zip archive to a publication (publish code, etc.)
+
 0.1.4
 * widgEditor css content (widgContent.css) is now found and has been updated to support the website style file
 * index.html favicon now routes to the correct file

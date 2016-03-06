@@ -326,6 +326,11 @@ function mysql_print_publis_by_type($bdd,$type) {
 				echo "<a target=\"_blank\" href=\"../assets/slides/".$value['pdfslides']."\" class=\"slidesLink\">Slides</a>";
 			}
 			
+			// Print link to downlodable archive, if any
+			if($value['zipfile'] != '') {
+				echo "<a target=\"_blank\" href=\"../assets/archives/".$value['zipfile']."\" class=\"downloadZipLink\">Additional content</a>";
+			}
+			
 			// End buttons p
 			echo "</p>";
 			

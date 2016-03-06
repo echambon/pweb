@@ -142,6 +142,8 @@ $query->closeCursor();
 				if(!$editing) {
 					// INSERT
 					if(!empty(htmlspecialchars($_POST['title'])) && !empty(htmlspecialchars($_POST['authors'])) && !empty(htmlspecialchars($_POST['source'])) && !empty(htmlspecialchars($_POST['year'])) && !empty(htmlspecialchars($_POST['bibtexid']))) {
+						// TODO: there are problems with these upload codes: the extension is not checked
+						
 						if(!empty($_FILES['pdffile']['name'])) {
 							// Upload pdf file
 							$target_dir = "../assets/publis/";
@@ -155,19 +157,19 @@ $query->closeCursor();
 								case 1:
 									?>
 										<meta http-equiv="refresh" content="1; URL=publis">
-										<p><center><font color="red"><b>PDF file is too large!</b></font></center></p>
+										<p><center><font color="red"><b>File is too large!</b></font></center></p>
 									<?php
 									break;
-								case 2:
+								/*case 2:
 									?>
 										<meta http-equiv="refresh" content="1; URL=publis">
 										<p><center><font color="red"><b>Only PDF files are allowed!</b></font></center></p>
 									<?php
-									break;
-								case 3:
+									break;*/
+								default:
 									?>
 										<meta http-equiv="refresh" content="1; URL=publis">
-										<p><center><font color="red"><b>An error occurred while uploading the PDF file.</b></font></center></p>
+										<p><center><font color="red"><b>An error occurred while uploading the publication file.</b></font></center></p>
 									<?php
 									break;
 							}
@@ -189,19 +191,19 @@ $query->closeCursor();
 								case 1:
 									?>
 										<meta http-equiv="refresh" content="1; URL=publis">
-										<p><center><font color="red"><b>PDF file is too large!</b></font></center></p>
+										<p><center><font color="red"><b>File is too large!</b></font></center></p>
 									<?php
 									break;
-								case 2:
+								/*case 2:
 									?>
 										<meta http-equiv="refresh" content="1; URL=publis">
 										<p><center><font color="red"><b>Only PDF files are allowed!</b></font></center></p>
 									<?php
-									break;
-								case 3:
+									break;*/
+								default:
 									?>
 										<meta http-equiv="refresh" content="1; URL=publis">
-										<p><center><font color="red"><b>An error occurred while uploading the PDF file.</b></font></center></p>
+										<p><center><font color="red"><b>An error occurred while uploading the slides file.</b></font></center></p>
 									<?php
 									break;
 							}
@@ -209,8 +211,36 @@ $query->closeCursor();
 							$pdfslides = "";
 						}
 						
+						// Upload zip archive, if any
+						if(!empty($_FILES['archivefile']['name'])) {
+							// Upload pdf file
+							$target_dir = "../assets/archives/";
+							$target_file = $target_dir.basename($_FILES['archivefile']['name']);
+							$errorCode = file_upload($_FILES['archivefile'],$target_file);
+							
+							switch($errorCode) {
+								case 0:
+									$zipfile = basename($_FILES['archivefile']['name']);
+									break;
+								case 1:
+									?>
+										<meta http-equiv="refresh" content="1; URL=publis">
+										<p><center><font color="red"><b>File is too large!</b></font></center></p>
+									<?php
+									break;
+								default:
+									?>
+										<meta http-equiv="refresh" content="1; URL=publis">
+										<p><center><font color="red"><b>An error occurred while uploading the archive file.</b></font></center></p>
+									<?php
+									break;
+							}
+						} else {
+							$zipfile = "";
+						}
+						
 						// Create entry in pw_publis
-						$stmt = $bdd->prepare("INSERT INTO pw_publis (title,type,status,authors,source,pages,note,address,month,year,abstract,bibtex_id,pdf,pdfslides,disabled) VALUES (:title,:type,:status,:authors,:source,:pages,:note,:address,:month,:year,:abstract,:bibtex_id,:pdf,:pdfslides,0)");
+						$stmt = $bdd->prepare("INSERT INTO pw_publis (title,type,status,authors,source,pages,note,address,month,year,abstract,bibtex_id,pdf,pdfslides,zipfile,disabled) VALUES (:title,:type,:status,:authors,:source,:pages,:note,:address,:month,:year,:abstract,:bibtex_id,:pdf,:pdfslides,:zipfile,0)");
 						$stmt->bindParam(':title',$title);
 						$stmt->bindParam(':type',$type);
 						$stmt->bindParam(':status',$status);
@@ -225,6 +255,7 @@ $query->closeCursor();
 						$stmt->bindParam(':bibtex_id',$bibtex_id);
 						$stmt->bindParam(':pdf',$pdf);
 						$stmt->bindParam(':pdfslides',$pdfslides);
+						$stmt->bindParam(':zipfile',$zipfile);
 						
 						$title = htmlspecialchars($_POST['title']);
 						$type = $_POST['publtype'];
@@ -265,6 +296,7 @@ $query->closeCursor();
 						
 						$pdf = $publiInfo['pdf'];
 						$pdfslides = $publiInfo['pdfslides'];
+						$zipfile = $publiInfo['zipfile'];
 						
 						if(!empty($_FILES['pdffile']['name'])) {
 							// Delete previous file
@@ -283,19 +315,19 @@ $query->closeCursor();
 								case 1:
 									?>
 										<meta http-equiv="refresh" content="1; URL=publis">
-										<p><center><font color="red"><b>PDF file is too large!</b></font></center></p>
+										<p><center><font color="red"><b>File is too large!</b></font></center></p>
 									<?php
 									break;
-								case 2:
+								/*case 2:
 									?>
 										<meta http-equiv="refresh" content="1; URL=publis">
 										<p><center><font color="red"><b>Only PDF files are allowed!</b></font></center></p>
 									<?php
-									break;
-								case 3:
+									break;*/
+								default:
 									?>
 										<meta http-equiv="refresh" content="1; URL=publis">
-										<p><center><font color="red"><b>An error occurred while uploading the PDF file.</b></font></center></p>
+										<p><center><font color="red"><b>An error occurred while uploading the publication file.</b></font></center></p>
 									<?php
 									break;
 							}
@@ -320,26 +352,63 @@ $query->closeCursor();
 								case 1:
 									?>
 										<meta http-equiv="refresh" content="1; URL=publis">
-										<p><center><font color="red"><b>PDF file is too large!</b></font></center></p>
+										<p><center><font color="red"><b>File is too large!</b></font></center></p>
 									<?php
 									break;
-								case 2:
+								/*case 2:
 									?>
 										<meta http-equiv="refresh" content="1; URL=publis">
 										<p><center><font color="red"><b>Only PDF files are allowed!</b></font></center></p>
 									<?php
-									break;
-								case 3:
+									break;*/
+								default:
 									?>
 										<meta http-equiv="refresh" content="1; URL=publis">
-										<p><center><font color="red"><b>An error occurred while uploading the PDF file.</b></font></center></p>
+										<p><center><font color="red"><b>An error occurred while uploading the slides file.</b></font></center></p>
+									<?php
+									break;
+							}
+						}
+						
+						if(!empty($_FILES['archivefile']['name'])) {
+							// Delete slides pdf, if any
+							if($zipfile != "") {
+								$slidesToDelete = "../assets/archives/".$pdfslides;
+								unlink($slidesToDelete);
+							}
+							
+							// Upload pdf file
+							$target_dir = "../assets/archives/";
+							$target_file = $target_dir.basename($_FILES['archivefile']['name']);
+							$errorCode = file_upload($_FILES['archivefile'],$target_file);
+							
+							switch($errorCode) {
+								case 0:
+									$pdf = basename($_FILES['archivefile']['name']);
+									break;
+								case 1:
+									?>
+										<meta http-equiv="refresh" content="1; URL=publis">
+										<p><center><font color="red"><b>File is too large!</b></font></center></p>
+									<?php
+									break;
+								/*case 2:
+									?>
+										<meta http-equiv="refresh" content="1; URL=publis">
+										<p><center><font color="red"><b>Only PDF files are allowed!</b></font></center></p>
+									<?php
+									break;*/
+								default:
+									?>
+										<meta http-equiv="refresh" content="1; URL=publis">
+										<p><center><font color="red"><b>An error occurred while uploading the archive file.</b></font></center></p>
 									<?php
 									break;
 							}
 						}
 						
 						// Update entry
-						$query = $bdd->prepare('UPDATE pw_publis SET title=:title, type=:type, status=:status, authors=:authors, source=:source, pages=:pages, note=:note, address=:address, month=:month, year=:year, abstract=:abstract, bibtex_id=:bibtex_id, pdf=:pdf, pdfslides=:pdfslides WHERE id='.$id.'');
+						$query = $bdd->prepare('UPDATE pw_publis SET title=:title, type=:type, status=:status, authors=:authors, source=:source, pages=:pages, note=:note, address=:address, month=:month, year=:year, abstract=:abstract, bibtex_id=:bibtex_id, pdf=:pdf, pdfslides=:pdfslides, zipfile=:zipfile WHERE id='.$id.'');
 						$query->bindParam(':title',$title);
 						$query->bindParam(':type',$type);
 						$query->bindParam(':status',$status);
@@ -354,6 +423,7 @@ $query->closeCursor();
 						$query->bindParam(':bibtex_id',$bibtex_id);
 						$query->bindParam(':pdf',$pdf);
 						$query->bindParam(':pdfslides',$pdfslides);
+						$query->bindParam(':zipfile',$zipfile);
 						
 						// Variables
 						// $pdf
@@ -411,8 +481,10 @@ $query->closeCursor();
 					
 					$cur_pdf = $publiInfo['pdf'];
 					$cur_slides = $publiInfo['pdfslides'];
+					$cur_archive = $publiInfo['zipfile'];
 					if($cur_pdf == "") { $cur_pdf = "<i>none</i>"; }
 					if($cur_slides == "") { $cur_slides = "<i>none</i>"; }
+					if($cur_archive == "") { $cur_archive = "<i>none</i>"; }
 				}
 				?>
 				<form method=post action="editpubli<?php if($editing) { ?>?id=<?php echo $id; ?>&act=1<?php } ?>" enctype="multipart/form-data">
@@ -485,6 +557,8 @@ $query->closeCursor();
 					<h2>PDF file</h2><input type="file" name="pdffile" id="pdffile"><b><?php if($editing) { echo "Current: ".$cur_pdf; } ?></b>
 					
 					<h2>Slides file</h2><input type="file" name="slidesfile" id="slidesfile"><b><?php if($editing) { echo "Current: ".$cur_slides; } ?></b>
+					
+					<h2>Archive file</h2><input type="file" name="archivefile" id="archivefile"><b><?php if($editing) { echo "Current: ".$cur_archive; } ?></b>
 					
 					<h2>Abstract</h2>
 					<textarea id="abstract" name="abstract" rows="8" cols="100"><?php if($editing) { echo $abstract; } ?></textarea><br>(no html formatting)
