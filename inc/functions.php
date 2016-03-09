@@ -328,7 +328,7 @@ function mysql_print_publis_by_type($bdd,$type) {
 			
 			// Print link to downlodable archive, if any
 			if($value['zipfile'] != '') {
-				echo "<a target=\"_blank\" href=\"../assets/archives/".$value['zipfile']."\" class=\"downloadZipLink\">Additional content</a>";
+				echo "<a target=\"_blank\" href=\"../assets/archives/".$value['zipfile']."\" class=\"downloadZipLink\">".$value['zipfile']."</a>";
 			}
 			
 			// End buttons p
@@ -393,10 +393,12 @@ function mysql_print_publis_by_type($bdd,$type) {
 				echo "month = ".$monthList[$value['month']].",<br>";
 				
 				// Year
-				echo "year = {".$value['year']."},<br>";
+				echo "year = {".$value['year']."}";
 				
 				// URL
-				echo "url = {http://".$_SERVER['HTTP_HOST']."/assets/publis/".$value['pdf']."}";
+				if($value['pdf'] != '') {
+					echo ",<br>url = {http://".$_SERVER['HTTP_HOST']."/assets/publis/".$value['pdf']."}";
+				}
 			
 			echo "</div><p class=\"bibtex_code\">}</p></div>";
 			
@@ -410,7 +412,7 @@ function mysql_print_publis_by_type($bdd,$type) {
 *	file_upload
 *	Uploads file to given destination and returns error code if failed
 */
-function file_upload($file_to_upload,$target_file) {
+function file_upload($file_to_upload,$target_file,$extension) {
 	$fileType = pathinfo($target_file,PATHINFO_EXTENSION);
 							
 	// Check file size
@@ -419,7 +421,7 @@ function file_upload($file_to_upload,$target_file) {
 	}
 	
 	// Check type
-	if($fileType != "pdf") {
+	if($fileType != $extension) { // "pdf"
 		return 2;
 	}
 	

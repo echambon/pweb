@@ -51,7 +51,9 @@ To install pweb, make sure you have root access to a MySQL database.
 CHANGELOGs 
 ============
 0.1.5
-* you can now link a zip archive to a publication (publish code, etc.)
+* you can now link a zip archive to a publication (to publish code, etc.)
+* corrected url field showing in bibtex entries even when no pdf file was uploaded
+* the code now prevents creation of publication sharing the same bibtex_id
 
 0.1.4
 * widgEditor css content (widgContent.css) is now found and has been updated to support the website style file
