@@ -53,7 +53,9 @@ CHANGELOGs
 0.1.5
 * you can now link a zip archive to a publication (to publish code, etc.)
 * corrected url field showing in bibtex entries even when no pdf file was uploaded
-* the code now prevents creation of publication sharing the same bibtex_id
+* the code now prevents creation of publications sharing the same bibtex_id
+* modified the order in which publications appear (first published, then accepted, etc.)
+* publications are now placed in their correct type header section
 
 0.1.4
 * widgEditor css content (widgContent.css) is now found and has been updated to support the website style file

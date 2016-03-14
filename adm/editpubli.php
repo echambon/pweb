@@ -306,8 +306,8 @@ $query->closeCursor();
 					// UPDATE
 					if(!empty(htmlspecialchars($_POST['title'])) && !empty(htmlspecialchars($_POST['authors'])) && !empty(htmlspecialchars($_POST['source'])) && !empty(htmlspecialchars($_POST['year'])) && !empty(htmlspecialchars($_POST['bibtexid']))) {
 						// Check if $_POST['bibtexid'] is not already present and do not proceed if it is
-						//TODO
-						$query = $bdd->prepare('SELECT id FROM pw_publis WHERE bibtex_id=:bibtex_id');
+						$query = $bdd->prepare('SELECT id FROM pw_publis WHERE bibtex_id=:bibtex_id AND id!=:id');
+						$query->bindParam(':id',$id);
 						$query->bindParam(':bibtex_id',htmlspecialchars($_POST['bibtexid']));
 						$query->execute();
 						$result = $query->fetch(PDO::FETCH_ASSOC);

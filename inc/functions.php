@@ -213,13 +213,14 @@ function mysql_update_lastmodif($bdd) {
 *
 */
 function mysql_print_publis_by_type($bdd,$type) {
-	$query = $bdd->prepare('SELECT * FROM pw_publis WHERE type=:type ORDER BY status ASC, year DESC, month DESC');
+	$query = $bdd->prepare('SELECT * FROM pw_publis WHERE type=:type ORDER BY status DESC, year DESC, month DESC');
 	$query->bindParam(':type',$type);
 	$query->execute();
 	$phdconf = $query->fetchAll();
 	$query->closeCursor();
 		
 	$currentYear = 0;
+	$currenth2 = "";
 	
 	$h2printed = 0;
 	foreach($phdconf as $value) {
@@ -228,21 +229,21 @@ function mysql_print_publis_by_type($bdd,$type) {
 			$bibtexType = "@unpublished";
 			switch($value['status']) {
 					case 0:
-						if(!$h2printed) {
-							echo "<h2>Submitted</h2>";
-							$h2printed = 1;
+						if($currenth2 != "Submitted") {
+							$currenth2 = "Submitted";
+							echo "<h2>".$currenth2."</h2>";
 						}
 						break;
 					case 1:
-						if(!$h2printed) {
-							echo "<h2>Accepted (under revision)</h2>";
-							$h2printed = 1;
+						if($currenth2 != "Accepted (under revision)") {
+							$currenth2 = "Accepted (under revision)";
+							echo "<h2>".$currenth2."</h2>";
 						}
 						break;
 					case 2:
-						if(!$h2printed) {
-							echo "<h2>Accepted</h2>";
-							$h2printed = 1;
+						if($currenth2 != "Accepted") {
+							$currenth2 = "Accepted";
+							echo "<h2>".$currenth2."</h2>";
 						}
 						break;
 					case 3:
@@ -421,7 +422,7 @@ function file_upload($file_to_upload,$target_file,$extension) {
 	}
 	
 	// Check type
-	if($fileType != $extension) { // "pdf"
+	if($fileType != $extension) {
 		return 2;
 	}
 	
