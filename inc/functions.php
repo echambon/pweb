@@ -384,6 +384,11 @@ function mysql_print_publis_by_type($bdd,$type) {
 				
 				echo "},<br>";
 				
+				// Note, if defined
+				if($value['note'] != '') {
+					echo "note = {".$value['note']."},<br>";
+				}
+				
 				// Pages, if defined
 				if($value['pages'] != '') {
 					echo "pages = {".$value['pages']."},<br>";

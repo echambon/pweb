@@ -56,6 +56,7 @@ CHANGELOGs
 * the code now prevents creation of publications sharing the same bibtex_id
 * modified the order in which publications appear (first published, then accepted, etc.)
 * publications are now placed in their correct type header section
+* notes, if any, now appear in bibtex entries
 
 0.1.4
 * widgEditor css content (widgContent.css) is now found and has been updated to support the website style file

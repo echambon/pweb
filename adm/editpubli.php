@@ -432,7 +432,6 @@ $query->closeCursor();
 										<?php
 										break;
 									default:
-									echo $errorCode;
 										?>
 											<meta http-equiv="refresh" content="1; URL=publis">
 											<p><center><font color="red"><b>An error occurred while uploading the archive file.</b></font></center></p>
