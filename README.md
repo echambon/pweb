@@ -50,6 +50,9 @@ To install pweb, make sure you have root access to a MySQL database.
 
 CHANGELOGs 
 ============
+0.1.6
+* reference to archive filename in database is not erased anymore when updating a publication entry
+
 0.1.5
 * you can now link a zip archive to a publication (to publish code, etc.)
 * corrected url field showing in bibtex entries even when no pdf file was uploaded

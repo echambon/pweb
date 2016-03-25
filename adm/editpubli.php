@@ -321,7 +321,7 @@ $query->closeCursor();
 						} else { 
 						
 							// Recover current pdf and pdfslides
-							$query = $bdd->prepare('SELECT pdf,pdfslides FROM pw_publis WHERE id=:id');
+							$query = $bdd->prepare('SELECT pdf,pdfslides,zipfile FROM pw_publis WHERE id=:id');
 							$query->bindParam(':id',$id);
 							$query->execute();
 							$publiInfo = $query->fetch(PDO::FETCH_ASSOC);
