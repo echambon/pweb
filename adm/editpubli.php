@@ -108,6 +108,120 @@ $query->closeCursor();
 								</form>
 							<?php
 							}
+						} else if($act == 10) {
+							?>
+							<h1>Delete publication PDF file</h1>
+							<?php
+							if(isset($_POST['confirm'])) { // Check if file is existing before?
+								// Get publication info
+								$query = $bdd->prepare('SELECT * FROM pw_publis WHERE id = :id');
+								$query->bindParam(':id',$id);
+								$query->execute();
+								$publiToDelete = $query->fetch(PDO::FETCH_ASSOC);
+								$query->closeCursor();
+								
+								// Delete pdf file from ../assets/publis/
+								$fileToDelete = "../assets/publis/".$publiToDelete['pdf'];
+								unlink($fileToDelete);
+								
+								// Update pdf DB field
+								$query = $bdd->prepare('UPDATE pw_publis SET pdf="" WHERE id = :id');
+								$query->bindParam(':id',$id);
+								$query->execute();
+								$query->closeCursor();
+								
+								// Update last modification date
+								mysql_update_lastmodif($bdd);
+								?>
+								<meta http-equiv="refresh" content="1; URL=editpubli?id=<?php echo $id; ?>&act=1">
+								<p><center><font color="blue"><b>Publication PDF file was deleted! Redirecting...</b></font></center></p>
+							<?php
+							} else {
+							?>
+								<form method=post action="editpubli?id=<?php echo $id; ?>&act=10">
+									<center>
+										Do you really want to delete the attached pdf file for the current publication (ID: <b><?php echo $id; ?></b>)?<br><font color="red"><b>This cannot be reversed!!!</b></font><br>
+										<input type="submit" name="confirm" value="Confirm"> or <a href="editpubli?id=<?php echo $id; ?>&act=1">Cancel</a>
+									</center>
+								</form>
+							<?php
+							}
+						} else if($act == 11) {
+							?>
+							<h1>Delete publication slides file</h1>
+							<?php
+							if(isset($_POST['confirm'])) { // Check if file is existing before?
+								// Get publication info
+								$query = $bdd->prepare('SELECT * FROM pw_publis WHERE id = :id');
+								$query->bindParam(':id',$id);
+								$query->execute();
+								$publiToDelete = $query->fetch(PDO::FETCH_ASSOC);
+								$query->closeCursor();
+								
+								// Delete pdf file from ../assets/slides/
+								$fileToDelete = "../assets/slides/".$publiToDelete['pdfslides'];
+								unlink($fileToDelete);
+								
+								// Update pdf DB field
+								$query = $bdd->prepare('UPDATE pw_publis SET pdfslides="" WHERE id = :id');
+								$query->bindParam(':id',$id);
+								$query->execute();
+								$query->closeCursor();
+								
+								// Update last modification date
+								mysql_update_lastmodif($bdd);
+								?>
+								<meta http-equiv="refresh" content="1; URL=editpubli?id=<?php echo $id; ?>&act=1">
+								<p><center><font color="blue"><b>Publication slides file was deleted! Redirecting...</b></font></center></p>
+							<?php
+							} else {
+							?>
+								<form method=post action="editpubli?id=<?php echo $id; ?>&act=11">
+									<center>
+										Do you really want to delete the attached slides file for the current publication (ID: <b><?php echo $id; ?></b>)?<br><font color="red"><b>This cannot be reversed!!!</b></font><br>
+										<input type="submit" name="confirm" value="Confirm"> or <a href="editpubli?id=<?php echo $id; ?>&act=1">Cancel</a>
+									</center>
+								</form>
+							<?php
+							}
+						} else if($act == 12) {
+							?>
+							<h1>Delete publication archive file</h1>
+							<?php
+							if(isset($_POST['confirm'])) { // Check if file is existing before?
+								// Get publication info
+								$query = $bdd->prepare('SELECT * FROM pw_publis WHERE id = :id');
+								$query->bindParam(':id',$id);
+								$query->execute();
+								$publiToDelete = $query->fetch(PDO::FETCH_ASSOC);
+								$query->closeCursor();
+								
+								// Delete pdf file from ../assets/archives/
+								$fileToDelete = "../assets/archives/".$publiToDelete['zipfile'];
+								unlink($fileToDelete);
+								
+								// Update pdf DB field
+								$query = $bdd->prepare('UPDATE pw_publis SET zipfile="" WHERE id = :id');
+								$query->bindParam(':id',$id);
+								$query->execute();
+								$query->closeCursor();
+								
+								// Update last modification date
+								mysql_update_lastmodif($bdd);
+								?>
+								<meta http-equiv="refresh" content="1; URL=editpubli?id=<?php echo $id; ?>&act=1">
+								<p><center><font color="blue"><b>Publication archive file was deleted! Redirecting...</b></font></center></p>
+							<?php
+							} else {
+							?>
+								<form method=post action="editpubli?id=<?php echo $id; ?>&act=12">
+									<center>
+										Do you really want to delete the attached archive file for the current publication (ID: <b><?php echo $id; ?></b>)?<br><font color="red"><b>This cannot be reversed!!!</b></font><br>
+										<input type="submit" name="confirm" value="Confirm"> or <a href="editpubli?id=<?php echo $id; ?>&act=1">Cancel</a>
+									</center>
+								</form>
+							<?php
+							}
 						} else if($act == 1) {
 							$formActive = 1;
 							$editing = 1;
@@ -588,11 +702,11 @@ $query->closeCursor();
 					
 					<h2>BibTeX identifier</h2><input type="text" name="bibtexid" size="50" value="<?php if($editing) { echo $bibtex_id; } ?>"><font color="red"><b>*</b></font>
 					
-					<h2>PDF file</h2><input type="file" name="pdffile" id="pdffile"><b><?php if($editing) { echo "Current: ".$cur_pdf; } ?></b>
+					<h2>PDF file</h2><input type="file" name="pdffile" id="pdffile"><b><?php if($editing) { echo "Current: ".$cur_pdf; if($cur_pdf != "<i>none</i>") { ?><a href="editpubli?id=<?php echo $id; ?>&act=10"><img src="../inc/img/admin/page_delete.png" title="Delete file"></a><?php } } ?></b>
 					
-					<h2>Slides file</h2><input type="file" name="slidesfile" id="slidesfile"><b><?php if($editing) { echo "Current: ".$cur_slides; } ?></b>
+					<h2>Slides file</h2><input type="file" name="slidesfile" id="slidesfile"><b><?php if($editing) { echo "Current: ".$cur_slides; if($cur_slides != "<i>none</i>") { ?><a href="editpubli?id=<?php echo $id; ?>&act=11"><img src="../inc/img/admin/page_delete.png" title="Delete file"></a><?php } } ?></b>
 					
-					<h2>Archive file</h2><input type="file" name="archivefile" id="archivefile"><b><?php if($editing) { echo "Current: ".$cur_archive; } ?></b>
+					<h2>Archive file</h2><input type="file" name="archivefile" id="archivefile"><b><?php if($editing) { echo "Current: ".$cur_archive; if($cur_archive != "<i>none</i>") { ?><a href="editpubli?id=<?php echo $id; ?>&act=12"><img src="../inc/img/admin/page_delete.png" title="Delete file"></a><?php } } ?></b>
 					
 					<h2>Abstract</h2>
 					<textarea id="abstract" name="abstract" rows="8" cols="100"><?php if($editing) { echo $abstract; } ?></textarea><br>(no html formatting)

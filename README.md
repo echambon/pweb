@@ -50,6 +50,9 @@ To install pweb, make sure you have root access to a MySQL database.
 
 CHANGELOGs 
 ============
+0.1.7
+* publication attached pdf/slides/archives files can now be deleted from the editing page
+
 0.1.6
 * reference to archive filename in database is not erased anymore when updating a publication entry
 
