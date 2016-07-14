@@ -50,6 +50,9 @@ To install pweb, make sure you have root access to a MySQL database.
 
 CHANGELOGs 
 ============
+0.1.8
+* added support for volume/issue for journal entries. Volume/issue information can be filled for any publication entry but it appears for journal entries only.
+
 0.1.7
 * publication attached pdf/slides/archives files can now be deleted from the editing page
 
