@@ -1,29 +1,5 @@
--- phpMyAdmin SQL Dump
--- version 4.4.13.1deb1
--- http://www.phpmyadmin.net
 --
--- Client :  localhost
--- Généré le :  Dim 06 Mars 2016 à 15:54
--- Version du serveur :  5.6.28-0ubuntu0.15.10.1
--- Version de PHP :  5.6.11-1ubuntu3.1
-
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
---
--- Base de données :  `emmanuel-chambon-prod`
---
-
--- --------------------------------------------------------
-
---
--- Structure de la table `pw_config`
+-- Table structure for table `pw_config`
 --
 
 CREATE TABLE IF NOT EXISTS `pw_config` (
@@ -32,11 +8,11 @@ CREATE TABLE IF NOT EXISTS `pw_config` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
--- Contenu de la table `pw_config`
+-- Dumping data for table `pw_config`
 --
 
 INSERT INTO `pw_config` (`id`, `val`) VALUES
-(1, '2016/02/01'),
+(1, '2016/07/14'),
 (2, 'John Smith'),
 (3, 'Researcher'),
 (4, 'admin'),
@@ -49,7 +25,7 @@ INSERT INTO `pw_config` (`id`, `val`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `pw_pages`
+-- Table structure for table `pw_pages`
 --
 
 CREATE TABLE IF NOT EXISTS `pw_pages` (
@@ -58,17 +34,10 @@ CREATE TABLE IF NOT EXISTS `pw_pages` (
   `content` text NOT NULL
 ) ENGINE=MyISAM AUTO_INCREMENT=27 DEFAULT CHARSET=latin1;
 
---
--- Contenu de la table `pw_pages`
---
-
-INSERT INTO `pw_pages` (`id`, `name`, `content`) VALUES
-(0, 'Publications', '');
-
 -- --------------------------------------------------------
 
 --
--- Structure de la table `pw_pages_order`
+-- Table structure for table `pw_pages_order`
 --
 
 CREATE TABLE IF NOT EXISTS `pw_pages_order` (
@@ -80,17 +49,10 @@ CREATE TABLE IF NOT EXISTS `pw_pages_order` (
   `protected` tinyint(1) NOT NULL
 ) ENGINE=MyISAM AUTO_INCREMENT=18 DEFAULT CHARSET=latin1;
 
---
--- Contenu de la table `pw_pages_order`
---
-
-INSERT INTO `pw_pages_order` (`id`, `page_id`, `order_menu`, `hidden`, `disabled`, `protected`) VALUES
-(2, 0, 0, 0, 0, 1);
-
 -- --------------------------------------------------------
 
 --
--- Structure de la table `pw_publis`
+-- Table structure for table `pw_publis`
 --
 
 CREATE TABLE IF NOT EXISTS `pw_publis` (
@@ -100,6 +62,8 @@ CREATE TABLE IF NOT EXISTS `pw_publis` (
   `status` int(8) NOT NULL,
   `authors` varchar(255) NOT NULL,
   `source` text NOT NULL,
+  `volume` int(8) NOT NULL,
+  `issue` int(8) NOT NULL,
   `pages` varchar(255) NOT NULL,
   `note` text NOT NULL,
   `address` text NOT NULL,
@@ -111,55 +75,51 @@ CREATE TABLE IF NOT EXISTS `pw_publis` (
   `pdfslides` text NOT NULL,
   `zipfile` text NOT NULL,
   `disabled` tinyint(1) NOT NULL
-) ENGINE=MyISAM AUTO_INCREMENT=22 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=29 DEFAULT CHARSET=latin1;
 
 --
--- Index pour les tables exportées
---
-
---
--- Index pour la table `pw_config`
+-- Indexes for table `pw_config`
 --
 ALTER TABLE `pw_config`
   ADD PRIMARY KEY (`id`);
 
 --
--- Index pour la table `pw_pages`
+-- Indexes for table `pw_pages`
 --
 ALTER TABLE `pw_pages`
   ADD PRIMARY KEY (`id`);
 
 --
--- Index pour la table `pw_pages_order`
+-- Indexes for table `pw_pages_order`
 --
 ALTER TABLE `pw_pages_order`
   ADD PRIMARY KEY (`id`);
 
 --
--- Index pour la table `pw_publis`
+-- Indexes for table `pw_publis`
 --
 ALTER TABLE `pw_publis`
   ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT pour les tables exportées
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT pour la table `pw_pages`
+-- AUTO_INCREMENT for table `pw_pages`
 --
 ALTER TABLE `pw_pages`
   MODIFY `id` int(8) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=27;
 --
--- AUTO_INCREMENT pour la table `pw_pages_order`
+-- AUTO_INCREMENT for table `pw_pages_order`
 --
 ALTER TABLE `pw_pages_order`
   MODIFY `id` int(8) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=18;
 --
--- AUTO_INCREMENT pour la table `pw_publis`
+-- AUTO_INCREMENT for table `pw_publis`
 --
 ALTER TABLE `pw_publis`
-  MODIFY `id` int(8) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=22;
+  MODIFY `id` int(8) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=29;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

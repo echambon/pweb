@@ -371,12 +371,14 @@ $query->closeCursor();
 							}
 							
 							// Create entry in pw_publis
-							$stmt = $bdd->prepare("INSERT INTO pw_publis (title,type,status,authors,source,pages,note,address,month,year,abstract,bibtex_id,pdf,pdfslides,zipfile,disabled) VALUES (:title,:type,:status,:authors,:source,:pages,:note,:address,:month,:year,:abstract,:bibtex_id,:pdf,:pdfslides,:zipfile,0)");
+							$stmt = $bdd->prepare("INSERT INTO pw_publis (title,type,status,authors,source,volume,issue,pages,note,address,month,year,abstract,bibtex_id,pdf,pdfslides,zipfile,disabled) VALUES (:title,:type,:status,:authors,:source,:pages,:note,:address,:month,:year,:abstract,:bibtex_id,:pdf,:pdfslides,:zipfile,0)");
 							$stmt->bindParam(':title',$title);
 							$stmt->bindParam(':type',$type);
 							$stmt->bindParam(':status',$status);
 							$stmt->bindParam(':authors',$authors);
 							$stmt->bindParam(':source',$source);
+							$stmt->bindParam(':volume',$volume);
+							$stmt->bindParam(':issue',$issue);
 							$stmt->bindParam(':pages',$pages);
 							$stmt->bindParam(':note',$note);
 							$stmt->bindParam(':address',$address);
@@ -393,6 +395,8 @@ $query->closeCursor();
 							$status = $_POST['publstatus'];
 							$authors = htmlspecialchars($_POST['authors']);
 							$source = htmlspecialchars($_POST['source']);
+							$volume = htmlspecialchars($_POST['volume']);
+							$issue = htmlspecialchars($_POST['issue']);
 							$pages = htmlspecialchars($_POST['pages']);
 							$note = htmlspecialchars($_POST['note']);
 							$address = htmlspecialchars($_POST['address']);
@@ -555,12 +559,14 @@ $query->closeCursor();
 							}
 							
 							// Update entry
-							$query = $bdd->prepare('UPDATE pw_publis SET title=:title, type=:type, status=:status, authors=:authors, source=:source, pages=:pages, note=:note, address=:address, month=:month, year=:year, abstract=:abstract, bibtex_id=:bibtex_id, pdf=:pdf, pdfslides=:pdfslides, zipfile=:zipfile WHERE id='.$id.'');
+							$query = $bdd->prepare('UPDATE pw_publis SET title=:title, type=:type, status=:status, authors=:authors, source=:source, volume=:volume, issue=:issue, pages=:pages, note=:note, address=:address, month=:month, year=:year, abstract=:abstract, bibtex_id=:bibtex_id, pdf=:pdf, pdfslides=:pdfslides, zipfile=:zipfile WHERE id='.$id.'');
 							$query->bindParam(':title',$title);
 							$query->bindParam(':type',$type);
 							$query->bindParam(':status',$status);
 							$query->bindParam(':authors',$authors);
 							$query->bindParam(':source',$source);
+							$query->bindParam(':volume',$volume);
+							$query->bindParam(':issue',$issue);
 							$query->bindParam(':pages',$pages);
 							$query->bindParam(':note',$note);
 							$query->bindParam(':address',$address);
@@ -580,6 +586,8 @@ $query->closeCursor();
 							$status = $_POST['publstatus'];
 							$authors = htmlspecialchars($_POST['authors']);
 							$source = htmlspecialchars($_POST['source']);
+							$volume = htmlspecialchars($_POST['volume']);
+							$issue = htmlspecialchars($_POST['issue']);
 							$pages = htmlspecialchars($_POST['pages']);
 							$note = htmlspecialchars($_POST['note']);
 							$address = htmlspecialchars($_POST['address']);
@@ -619,6 +627,8 @@ $query->closeCursor();
 					$status = $publiInfo['status'];
 					$authors = $publiInfo['authors'];
 					$source = $publiInfo['source'];
+					$volume = $publiInfo['volume'];
+					$issue = $publiInfo['issue'];
 					$pages = $publiInfo['pages'];
 					$note = $publiInfo['note'];
 					$address = $publiInfo['address'];
@@ -682,6 +692,8 @@ $query->closeCursor();
 					<h2>Authors</h2><input type="text" name="authors" size="50" value="<?php if($editing) { echo $authors; } ?>"><font color="red"><b>*</b></font><br>(e.g.: John Smith, Albert Einstein, etc.)
 					
 					<h2>Source</h2><input type="text" name="source" size="50" value="<?php if($editing) { echo $source; } ?>"><font color="red"><b>*</b></font><br>(e.g.: 6th Conference on Smithonian Operators)
+					
+					<h2>Volume and issue</h2><input type="text" name="volume" size="21" value="<?php if($editing) { echo $volume; } ?>"><input type="text" name="issue" size="21" value="<?php if($editing) { echo $issue; } ?>"><br>(Volume and issue number are valid for journal entries only)
 					
 					<h2>Pages</h2><input type="text" name="pages" size="50" value="<?php if($editing) { echo $pages; } ?>"><br>(e.g.: 25--32)
 					

@@ -297,6 +297,15 @@ function mysql_print_publis_by_type($bdd,$type) {
 			if($value['address'] != "") {
 				echo ", ".$value['address'];
 			}
+			if($value['type'] == 0 && $value['volume'] != 0) {
+				echo ", ".$value['volume'];
+				if($value['issue'] != 0) {
+					echo "(".$value['issue'].")";
+				}
+			}
+			if($value['pages'] != "") {
+				echo ", pp. ".$value['pages'];
+			}
 			echo ", ".$value['year']."</p>";
 			
 			// Print note if any
@@ -387,6 +396,14 @@ function mysql_print_publis_by_type($bdd,$type) {
 				// Note, if defined
 				if($value['note'] != '') {
 					echo "note = {".$value['note']."},<br>";
+				}
+				
+				// Volume and issue, if journal
+				if($value['type'] == 0 && $value['volume'] != 0) {
+					echo "volume = {".$value['volume']."},<br>";
+				}
+				if($value['type'] == 0 && $value['issue'] != 0) {
+					echo "number = {".$value['issue']."},<br>";
 				}
 				
 				// Pages, if defined
