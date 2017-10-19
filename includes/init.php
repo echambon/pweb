@@ -47,10 +47,10 @@ $registry = new registry();
 $registry->db = new medoo([
 	// required
 	'database_type' => 'mysql',
-	'database_name' => 'mvc_pweb',
+	'database_name' => 'pweb_mvc',
 	'server' => 'localhost',
 	'username' => 'root',
-	'password' => '',
+	'password' => 'root',
 	'charset' => 'utf8',
 
 	// [optional]
