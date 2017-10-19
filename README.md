@@ -14,7 +14,7 @@ INSTALLATION
 NGINX URL-REWRITING
 ===================
 
-See nginx_url-rewriting.txt in /doc
+See nginx_url-rewriting in /doc
 
 
 VERSIONS
