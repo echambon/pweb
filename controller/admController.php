@@ -29,7 +29,7 @@ class admController extends baseController {
 		$this->configure();
 			
 		// load the header template
-		$this->registry->template->show('header');
+		$this->registry->template->show('adm_header');
 		
 		// load the menu template
 		if(!isset($_SESSION['user'])) {
@@ -48,6 +48,7 @@ class admController extends baseController {
 		// load footer template
 		$this->registry->template->versioning = '';
 		
+		// load javascripts
 		$scripts_str = '';
 		if($scripts != NULL) {
 			foreach($scripts as $script) {
@@ -77,7 +78,7 @@ class admController extends baseController {
 	public function show_login() {
 		if(!isset($_SESSION['user'])) {
 			// render login form
-			$this->render('adm_form_login',array('jquery','adm_form_login'));
+			$this->render('adm_form_login',array('jquery-3.2.1.min','adm_form_login'));
 		} else {
 			// "redirect" to index
 			$this->index();
@@ -125,7 +126,7 @@ class admController extends baseController {
 			$this->show_login();
 		} else {
 			// render pages list / creation
-			$this->render('adm_pages',array('jquery','adm_pages'));
+			$this->render('adm_pages',array('jquery-3.2.1.min','adm_pages'));
 		}
 	}
 	

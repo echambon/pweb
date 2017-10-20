@@ -27,12 +27,21 @@ class pageController extends baseController {
 		$this->registry->template->pwebaddress 	= $this->registry->config->pwebaddress;
 	}
 
-	private function render($template) {
+	private function render($template,$scripts) {
 		// set script generation start time
 		$this->registry->time->setScriptStartTime(microtime(TRUE));
 		
 		//
 		$this->configure();
+		
+		// load javascripts
+		$scripts_str = '';
+		if($scripts != NULL) {
+			foreach($scripts as $script) {
+				$scripts_str = $scripts_str . '<script src="/assets/js/'. $script .'.js"></script>';
+			}
+		}
+		$this->registry->template->scripts = $scripts_str;
 		
 		// load the header template
 		$this->registry->template->show('header');
@@ -52,6 +61,7 @@ class pageController extends baseController {
 		
 		// load footer template
 		$this->registry->template->show('footer');
+		
 	}
 
 	public function index() {
@@ -61,7 +71,7 @@ class pageController extends baseController {
 		$this->registry->template->content = html_entity_decode($content[0]['val']);
 		
 		// render page
-		$this->render('index');
+		$this->render('index',array('jquery-3.2.1.min','style'));
 	}
 	
 	public function show() {
@@ -79,7 +89,7 @@ class pageController extends baseController {
 				$this->registry->template->content = html_entity_decode($page[0]['content']);
 				
 				// render page
-				$this->render('page');
+				$this->render('page',array('jquery-3.2.1.min','style'));
 			}
 		}
 	}
