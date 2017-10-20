@@ -44,22 +44,22 @@ function __autoload($class_name) {
 $registry = new registry();
 
 // create the database registry object
-$registry->db = new medoo([
+$registry->db = new Medoo([
 	// required
 	'database_type' => 'mysql',
 	'database_name' => 'pweb_mvc',
 	'server' => 'localhost',
 	'username' => 'root',
 	'password' => 'root',
-	'charset' => 'utf8',
+	//'charset' => 'utf8',
 
 	// [optional]
-	'port' => 3306,
+	//'port' => 3306,
 
 	// driver_option for connection, read more from http://www.php.net/manual/en/pdo.setattribute.php
-	'option' => [
-		PDO::ATTR_CASE => PDO::CASE_NATURAL
-	]
+	//'option' => [
+	//	PDO::ATTR_CASE => PDO::CASE_NATURAL
+	//]
 ]);
 
 // create a new timeManager object

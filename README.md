@@ -20,5 +20,5 @@ See nginx_url-rewriting in /doc
 VERSIONS
 ========
 
-* jQuery: 1.12.0
-* medoo: 1.0
+* jQuery: 3.2.1.min
+* medoo: 1.4.5
