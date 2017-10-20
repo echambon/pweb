@@ -27,7 +27,16 @@ class admController extends baseController {
 		
 		// set template variables
 		$this->configure();
-			
+		
+		// load javascripts
+		$scripts_str = '';
+		if($scripts != NULL) {
+			foreach($scripts as $script) {
+				$scripts_str = $scripts_str . '<script src="/assets/js/'. $script .'.js"></script>';
+			}
+		}
+		$this->registry->template->scripts = $scripts_str;
+		
 		// load the header template
 		$this->registry->template->show('adm_header');
 		
@@ -48,15 +57,7 @@ class admController extends baseController {
 		// load footer template
 		$this->registry->template->versioning = '';
 		
-		// load javascripts
-		$scripts_str = '';
-		if($scripts != NULL) {
-			foreach($scripts as $script) {
-				$scripts_str = $scripts_str . '<script src="/assets/js/'. $script .'.js"></script>';
-			}
-		}
-		$this->registry->template->scripts = $scripts_str;
-		
+		// session ouverte
 		if(isset($_SESSION['user'])) {
 			$this->registry->template->versioning = 'Server path: <b>'. getcwd() .'</b><br />Versions: <b>' . phpversion() . '</b> (PHP); <b>' . $this->registry->db->pdo->getAttribute(constant("PDO::ATTR_SERVER_VERSION")). '</b> (MySQL); <b>' . $this->registry->config->cmsversion . '</b> (<a href="' . $this->registry->config->pwebaddress . '" target="_blank">pweb</a> CMS)<br />';
 		}

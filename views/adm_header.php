@@ -7,6 +7,7 @@
 		<meta name="cms-name" content="pweb">
 		<meta name="cms-version" content="<?php echo $cmsversion; ?>">
 		<meta name="keywords" content="<?php echo $keywords; ?>">
+		<?php echo $scripts; ?>
 		<title><?php echo $title; ?></title>
 	</head>
 
