@@ -8,6 +8,7 @@
 class pageController extends baseController {
 	private $page_model;
 	private $menu_model;
+	private $subpages;
 
 	public function __construct($registry) {
 		parent::__construct($registry);
@@ -59,8 +60,13 @@ class pageController extends baseController {
 		$this->registry->time->setScriptEndTime(microtime(TRUE));
 		$this->registry->template->gentime = $this->registry->time->getGenTime();
 		
-		// render subpages
-		// TODO
+		// render subpages (debug: only one subpage is displayed)
+		if(!empty($this->subpages)) {
+			$this->registry->template->subpage_name = html_entity_decode($this->subpages[0]['name']);
+			$this->registry->template->subpage_title = html_entity_decode($this->subpages[0]['title']);
+			$this->registry->template->subpage_content = html_entity_decode($this->subpages[0]['content']);
+			$this->registry->template->show('subpage');
+		}
 		
 		// load footer template
 		$this->registry->template->show('footer');
@@ -83,6 +89,9 @@ class pageController extends baseController {
 		// set page content
 		$this->registry->template->page_content = html_entity_decode($page_data[0]['content']);
 		
+		// get subpages
+		$this->subpages = $this->page_model->getSubpagesData($page_data[0]['id']);
+		
 		// render page
 		$this->render('page',array('jquery-3.2.1.min','style'));
 	}
@@ -101,6 +110,8 @@ class pageController extends baseController {
 			} else {
 				// check if page is subpage
 				if($page_data[0]['parent'] != 0) {
+					// TODO (redirect to page#subpage_name)
+					
 					// set a template variable
 					$this->registry->template->content = 'test';
 				} else {
@@ -112,13 +123,13 @@ class pageController extends baseController {
 					
 					// set page content
 					$this->registry->template->page_content = html_entity_decode($page_data[0]['content']);
+					
+					// get subpages
+					$this->subpages = $this->page_model->getSubpagesData($page_data[0]['id']);
 				}
 				
 				// render page
 				$this->render('page',array('jquery-3.2.1.min','style'));
-				
-				// render subpages
-				// TODO
 			}
 		}
 	}

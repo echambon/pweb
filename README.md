@@ -9,7 +9,7 @@ INSTALLATION
 
 * Edit the mysql credentials in /includes/init.php;
 * Copy/paste to your server target folder;
-* Run mvc_pweb.sql in phpmyadmin.
+* Run pweb_mvc.sql in phpmyadmin.
 
 NGINX URL-REWRITING
 ===================

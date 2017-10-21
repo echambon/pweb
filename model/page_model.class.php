@@ -23,4 +23,8 @@ class page_model extends baseModel {
 		return $this->registry->db->select('pw_pages',['id','name','parent','title','content'],['url' => $url]);
 	}
 	
+	public function getSubpagesData($id) {
+		return $this->registry->db->select('pw_pages',['id','name','url','title','content'],['parent' => $id]);
+	}
+	
 }
