@@ -1,3 +1,5 @@
+		</section>
+		
 		<footer>
 			<div id="centerblock">
 				<h1>Contact</h1>

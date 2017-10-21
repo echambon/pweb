@@ -10,5 +10,3 @@
 	</div>
 	
 	<?php // echo $subpages; ?>
-	
-</section>
