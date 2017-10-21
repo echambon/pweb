@@ -6,4 +6,7 @@
 	<div class="parallax">
 	
 	</div>
+	
+	<?php // echo $subpages; ?>
+	
 </section>

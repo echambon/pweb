@@ -18,4 +18,9 @@ class page_model extends baseModel {
 	public function getPageContent($url) {
 		return $this->registry->db->select('pw_pages',['content'],['url' => $url]);
 	}
+	
+	public function getPageData($url) {
+		return $this->registry->db->select('pw_pages',['id','name','parent','content'],['url' => $url]);
+	}
+	
 }
