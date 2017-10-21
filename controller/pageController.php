@@ -65,13 +65,17 @@ class pageController extends baseController {
 	}
 
 	public function index() {
-		$content = $this->page_model->getIndexContent();
+		// fetch the index page url
+		$index_page_url = $this->page_model->getIndexUrl();
+		
+		// fetch the index page content
+		$page = $this->page_model->getPageContent($index_page_url[0]['url']);
 		
 		// set a template variable
-		$this->registry->template->content = html_entity_decode($content[0]['val']);
+		$this->registry->template->content = html_entity_decode($page[0]['content']);
 		
 		// render page
-		$this->render('index',array('jquery-3.2.1.min','style'));
+		$this->render('page',array('jquery-3.2.1.min','style'));
 	}
 	
 	public function show() {
