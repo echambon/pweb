@@ -69,7 +69,7 @@ class pageController extends baseController {
 		$index_page_url = $this->page_model->getIndexUrl();
 		
 		// fetch the index page content
-		$page = $this->page_model->getPageContent($index_page_url[0]['url']);
+		$page = $this->page_model->getPageContent($index_page_url[0]['val']);
 		
 		// set a template variable
 		$this->registry->template->content = html_entity_decode($page[0]['content']);
