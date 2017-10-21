@@ -59,6 +59,9 @@ class pageController extends baseController {
 		$this->registry->time->setScriptEndTime(microtime(TRUE));
 		$this->registry->template->gentime = $this->registry->time->getGenTime();
 		
+		// render subpages
+		// TODO
+		
 		// load footer template
 		$this->registry->template->show('footer');
 		
@@ -69,10 +72,16 @@ class pageController extends baseController {
 		$index_page_url = $this->page_model->getIndexUrl();
 		
 		// fetch the index page content
-		$page = $this->page_model->getPageContent($index_page_url[0]['val']);
+		$page_data = $this->page_model->getPageData($index_page_url[0]['val']);
 		
-		// set a template variable
-		$this->registry->template->content = html_entity_decode($page[0]['content']);
+		// set page name
+		$this->registry->template->page_name = html_entity_decode($page_data[0]['name']);
+		
+		// set page title
+		$this->registry->template->page_title = html_entity_decode($page_data[0]['title']);
+		
+		// set page content
+		$this->registry->template->page_content = html_entity_decode($page_data[0]['content']);
 		
 		// render page
 		$this->render('page',array('jquery-3.2.1.min','style'));
@@ -82,18 +91,34 @@ class pageController extends baseController {
 		// load index if no page url is given
 		if($this->registry->param == '') {
 			$this->index();
-		} else {	
-			// fetch the page content by url
-			$page = $this->page_model->getPageContent($this->registry->param);
+		} else {
+			// fetch page data by url
+			$page_data = $this->page_model->getPageData($this->registry->param);
 			
-			if(empty($page)) {
+			// check if page is found
+			if(empty($page_data)) {
 				header('Location: /error/error404');
 			} else {
-				// set a template variable
-				$this->registry->template->content = html_entity_decode($page[0]['content']);
+				// check if page is subpage
+				if($page_data[0]['parent'] != 0) {
+					// set a template variable
+					$this->registry->template->content = 'test';
+				} else {
+					// set page name
+					$this->registry->template->page_name = html_entity_decode($page_data[0]['name']);
+					
+					// set page title
+					$this->registry->template->page_title = html_entity_decode($page_data[0]['title']);
+					
+					// set page content
+					$this->registry->template->page_content = html_entity_decode($page_data[0]['content']);
+				}
 				
 				// render page
 				$this->render('page',array('jquery-3.2.1.min','style'));
+				
+				// render subpages
+				// TODO
 			}
 		}
 	}

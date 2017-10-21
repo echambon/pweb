@@ -20,7 +20,7 @@ class page_model extends baseModel {
 	}
 	
 	public function getPageData($url) {
-		return $this->registry->db->select('pw_pages',['id','name','parent','content'],['url' => $url]);
+		return $this->registry->db->select('pw_pages',['id','name','parent','title','content'],['url' => $url]);
 	}
 	
 }
