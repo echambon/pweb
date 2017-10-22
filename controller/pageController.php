@@ -60,12 +60,14 @@ class pageController extends baseController {
 		$this->registry->time->setScriptEndTime(microtime(TRUE));
 		$this->registry->template->gentime = $this->registry->time->getGenTime();
 		
-		// render subpages (debug: only one subpage is displayed)
+		// render subpages
 		if(!empty($this->subpages)) {
-			$this->registry->template->subpage_name = html_entity_decode($this->subpages[0]['name']);
-			$this->registry->template->subpage_title = html_entity_decode($this->subpages[0]['title']);
-			$this->registry->template->subpage_content = html_entity_decode($this->subpages[0]['content']);
-			$this->registry->template->show('subpage');
+			foreach($this->subpages as $subpage) {
+				$this->registry->template->subpage_name = html_entity_decode($subpage['name']);
+				$this->registry->template->subpage_title = html_entity_decode($subpage['title']);
+				$this->registry->template->subpage_content = html_entity_decode($subpage['content']);
+				$this->registry->template->show('subpage');
+			}
 		}
 		
 		// load footer template
