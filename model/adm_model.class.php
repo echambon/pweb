@@ -27,5 +27,9 @@ class adm_model extends baseModel {
 			'content'	=> $content
 		]);
 	}
+	
+	public function getParentPages() {
+		return $this->registry->db->select('pw_pages',['id','name','url','title'],['parent' => 0]);
+	}
 
 }

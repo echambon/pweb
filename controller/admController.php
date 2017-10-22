@@ -126,6 +126,20 @@ class admController extends baseController {
 		if(!isset($_SESSION['user'])) {
 			$this->show_login();
 		} else {
+			// get parent pages (i.e. pages with parent field == 0)
+			$parent_pages = $this->model->getParentPages();
+			
+			// creating drop-down list content
+			if(!empty($parent_pages)) {
+				$list_options = '';
+				
+				foreach($parent_pages as $parent_page) {
+					 $list_options = $list_options . '<option value="'. $parent_page['id'] .'">(id:' . $parent_page['id'] . '- url:/' . $parent_page['url'] . ') '. $parent_page['name'] . ' - '. $parent_page['title'] .'</option>';
+				}
+				
+				$this->registry->template->parent_pages_list_options = $list_options;
+			}
+			
 			// render pages list / creation
 			$this->render('adm_pages',array('jquery-3.2.1.min','adm_pages'));
 		}
