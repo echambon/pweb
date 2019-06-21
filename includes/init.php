@@ -28,7 +28,7 @@ include __SITE_PATH . '/application/' . 'template.class.php';
 include __SITE_PATH . '/application/' . 'time_manager.class.php';
 
 // auto load model classes
-function __autoload($class_name) {
+spl_autoload_register(function($class_name) {
 	$filename = strtolower($class_name) . '.class.php';
 	$file = __SITE_PATH . '/model/' . $filename;
 
@@ -36,9 +36,9 @@ function __autoload($class_name) {
 	{
 		return false;
 	}
-	
+
 	include ($file);
-}
+});
 
 // new registry object (to store main config variables)
 $registry = new registry();
@@ -47,10 +47,10 @@ $registry = new registry();
 $registry->db = new Medoo([
 	// required
 	'database_type' => 'mysql',
-	'database_name' => 'pweb_mvc',
+	'database_name' => 'pweb_dev',
 	'server' => 'localhost',
 	'username' => 'root',
-	'password' => 'root',
+	'password' => '',
 	//'charset' => 'utf8',
 
 	// [optional]
